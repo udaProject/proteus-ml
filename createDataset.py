@@ -1,19 +1,13 @@
 import json
 import random
 
-
 dataset = {}
 
-for i in range(1, 200):
-    newPoint = {"x": random.randint(0, 100), "y": random.randint(0, 100)}
-    if not(newPoint in dataset.values()):
-        dataset[i] = newPoint
-    else:
-        print("repeated")
-
+for i in range(1, 500):
+    newPoint = {"x": random.gauss(0, 30), "y": random.gauss(0, 30)}
+    dataset[i] = newPoint
 
 with open('dataset.json', 'w') as outfile:
     json.dump(dataset, outfile)
 
-
-print("JSON CREATED")
+print("JSON created")
