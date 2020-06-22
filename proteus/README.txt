@@ -13,7 +13,7 @@ node1: {
   edges: {
     edge1: {
       link: node2,
-      counter:,
+      count:,
       util:
     },
     edge2: {
