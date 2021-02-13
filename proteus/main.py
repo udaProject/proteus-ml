@@ -210,7 +210,7 @@ for index, datum in enumerate(current_buffer):
 
     print('Debug --- K-Array: ', k_dict)
 
-    # hacky temporary approximation of total work done on all nearby nodes by signal since calculating simultaneous action of field on all springs is an expensive multi-body problem
+    # hacky temporary approximation of total work done on all nearby nodes by signal since calculating simultaneous action of field on all springs is an expensive multi-body problem; eventually must use a belief propagation algorithm --equivalent to the bethe/kikuchi approximations of the free energy of system
     scaling_factor = 0.5*(error_energy) / fsum(work_dict)
     scaled_work_dict = OrderedDict()
     adaptation_dict = OrderedDict()
@@ -267,7 +267,7 @@ for index, datum in enumerate(current_buffer):
         grow_node_err = grow_node[node_props_index]['acc_err']
         grow_node_hood = list(current_map.graph.neighbors(grow_node))
 
-        proj_err_pair_sum = {}
+        proj_err = {}
 
         for label, node in enumerate(grow_node_hood):
             hood_node_ref = node[node_props_index]['ref']
@@ -283,14 +283,20 @@ for index, datum in enumerate(current_buffer):
             right_proj_acc_err = unit_vec(right_edge_vec)*left_project
 
             pair_proj_sum = left_proj_acc_err + right_proj_acc_err
-            proj_err_pair_sum[label] = pair_proj_sum
+            proj_err[label] = {'left': left_proj_acc_err, 'right': right_proj_acc_err, 'sum': pair_proj_sum}
 
-        proj_err_pair_sum_dict = OrderedDict()
+        proj_err_dict = OrderedDict()
 
-        proj_err_pair_sum_dict = sorted(proj_err_pair_sum.items(), key=lambda entry: entry[1])
+        proj_err_dict = sorted(proj_err.items(), key=lambda entry: entry[1]['sum'])
 
         pair_proj_list = list(proj_err_pair_sum_dict.items())
-        highest_sum_neighbor_label = pair_proj_list[0][0]
+
+        top_sum_label = pair_proj_list[0][0]
+        top_left_proj = pair_proj_list[0][1]['left']
+        top_right_proj = pair_proj_list[0][1]['right']
+
+        # need to keep track of each projection along with sum in order to calculate how much error can be transfered to new node as utility/binding energy
+
 
 
 # --- Execute test ---
