@@ -9,6 +9,13 @@ import numpy as np
 
 # --- Definitions ---
 
+#do some refactoring; create vec class
+#overload len() built-in to calculate magnitude
+#overload modulus operator to calculate 'a' scaled by mag of 'b' (unit_vec for a % a)
+#overload minus operator to calculate vec_diff
+#overload plus operator to calculate vec_add
+#overload multiplication operator to calculate cos_sim (dot product)
+
 def magnitude(vec):
     if len(vec) == 1:
         return fabs(vec)
@@ -67,7 +74,7 @@ def range_normalize(datum, range):
     left_bound_index = 0
     right_bound_index = 1
     for comp in datum:
-        datum[comp] = ( datum[comp] - range[comp][left_bound_index]) ) / range[comp][right_bound_index])
+        datum[comp] = ( datum[comp] - range[comp][left_bound_index] ) ) / range[comp][right_bound_index])
 
 class data_buffer:
     def __init__(self, data_list, ranges):
@@ -90,9 +97,10 @@ class data_buffer:
         self.data.append( range_normalize(datum, ranges) )
 
     def merge_buffers(data_buffer):
-        self.index += data_buffer.
-        self.data.extend(data_buffer)
+        self.index += data_buffer
+        self.data = random.shuffle( self.data.extend(data_buffer) )
         self.ranges = {**self.ranges, **data_buffer.ranges}
+        self.dim = len(self.ranges)
 
 class model_map:
     def __init__(self, ranges):
@@ -128,16 +136,16 @@ node_props_index = 1
 current_buffer = data_buffer()
 current_map = model_map()
 
-# Scale factor should always be in range (0,1); '0' corresponds to perfect overfit of the input data (if the algorithm ever converges), '1' corresponds to no node growth ever
+# Scale factor should always be in range [0,1); '0' corresponds to perfect overfit of the input data (if the algorithm ever converges), '1' corresponds to no node growth ever due to infinite scale.
 
+
+# calculate a static scale_factor; temporary hack until can be adjusted dynamically
 #scale_factor = .85
 #scale_factor = .6
 scale_factor = .25
 
-input_dim = current_buffer.dim
-
-# calculate a static growth threshold; temporary hack until can be adjusted dynamically
-grow_thresh = -input_dim*log(1-scale_factor)
+ambient_dim = current_buffer.dim
+grow_thresh = -ambient_dim*log(1-scale_factor)
 
 # --- Script ---
 
@@ -186,7 +194,7 @@ for index, datum in enumerate(current_buffer):
     bmu_resist = calc_resist(current_map, bmu_hood, bmu, second_bmu)
     error_energy = spring(bmu_dist, bmu_resist)
 
-    # get the intersection of the two sets (a rhomboidal simplicial complex)
+    # get the intersection of the two start sets (not guaranteed to be a clique, i.e. a single simplex)
     hood_intersection = [ x for x in bmu_hood.append(bmu) if x in second_bmu_hood.append(second_bmu) ]
 
     # calculate adaptation for each member of the intersection set
