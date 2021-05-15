@@ -4,7 +4,7 @@ import math
 import numpy
 import scipy
 import scikit
-import easydata
+import networkx
 
 # Import data parser
 import data_parser as datpar
@@ -120,7 +120,7 @@ import fuzzy_logic as fuzlog
 
 # some_ordering_token
     # A three-element array containing a hash value and two references to other
-    # ordering tokens based on a DeBruijn graph scheme. (Can this be built dynamically?)
+    # ordering tokens based on a DeBruijn graph scheme. (can be built dynamically)
 
 
 # manifold.data_bundles[some_bundle_identifier]
@@ -191,7 +191,7 @@ import fuzzy_logic as fuzlog
 # def manifold.prim_membership(some_vector_label):
     # Returns an array of two-element tuples composed of chart labels from
     # charts encountered along the path and the corresponding membership value
-    # in those charts for the specified data vector.
+    # in those charts for the specified data vector. (the left-to-right order of the tuples in the array corresponds to a total inclusion ordering over the referenced charts)
 
 
 # def manifold.classify(subset_of_data_vectors):
@@ -202,12 +202,12 @@ import fuzzy_logic as fuzlog
 
 
 # def manifold.generate(some_fuzzy_predicates, quantity):
-    # Generate virtual data vectors stochastically sampled from the sub-manifold
-    # specified by the given tuple of fuzzy predicates.
+    # Generate virtual data vectors stochastically sampled from the new manifold
+    # defined by the given tuple of fuzzy predicates.
 
 
 # def manifold.query(some_fuzzy_predicates, return_limit)
-    # Return a subset, whose max size is restricted to the return_limt, of the
+    # Return a subset, whose max size is restricted to the return_limit, of the
     # fuzzy set defined by the given predicates.
 
 
@@ -226,7 +226,7 @@ import fuzzy_logic as fuzlog
     # interactive sequence by choosing a new binding (label) for the given set
     # based on their perception of the similarities of the set members.
     #
-    # NOTE: This can be used to teach the model arbitary language, and is vital
+    # NOTE: This can be used to teach the model arbitrary language, and is vital
     # for enabling interpretability of the model.
 
 # manifold.compset_idents[some_composite_set_label]

@@ -7,6 +7,8 @@ import matplotlib.pyplot as plot
 import collections
 import numpy as np
 
+from custom_types import buffer, map, vector
+
 # --- Definitions ---
 
 #do some refactoring; create vec class
@@ -167,7 +169,10 @@ for index, datum in enumerate(current_buffer):
     # find best matching units
     diff_vec_and_magn_dict = OrderedDict()
 
-    diff_vec_and_magn_dict = sorted(diff_vec_and_magn.items(), key=lambda node: node['magnitude'])
+    diff_vec_and_magn_dict = sorted(
+        diff_vec_and_magn.items(),
+        key = lambda node: node['magnitude']
+    )
 
     node_list = list(diff_vec_and_magn_dict.items())
     bmu = node_list[0][0]
@@ -177,7 +182,7 @@ for index, datum in enumerate(current_buffer):
     print('Debug --- BMU: ', bmu)
     print('Debug --- 2nd BMU: ', second_bmu)
 
-    # if there isn't an edge  between 1st & 2nd BMU, create one
+    # if there isn't an edge between 1st & 2nd BMU, create one
     if not current_map.graph.has_edge(bmu, second_bmu):
         current_map.graph.add_edges_from([
             new_link(bmu, second_bmu)
@@ -291,11 +296,18 @@ for index, datum in enumerate(current_buffer):
             right_proj_acc_err = unit_vec(right_edge_vec)*left_project
 
             pair_proj_sum = left_proj_acc_err + right_proj_acc_err
-            proj_err[label] = {'left': left_proj_acc_err, 'right': right_proj_acc_err, 'sum': pair_proj_sum}
+            proj_err[label] = {
+                'left': left_proj_acc_err,
+                'right': right_proj_acc_err,
+                'sum': pair_proj_sum
+            }
 
         proj_err_dict = OrderedDict()
 
-        proj_err_dict = sorted(proj_err.items(), key=lambda entry: entry[1]['sum'])
+        proj_err_dict = sorted(
+            proj_err.items(),
+            key=lambda entry: entry[1]['sum']
+        )
 
         pair_proj_list = list(proj_err_pair_sum_dict.items())
 

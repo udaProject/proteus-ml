@@ -26,33 +26,33 @@ node2: {
 ...
 """
 
-# Sample data point of data set. Compute distance of point to all existing nodes in graph.
+# Sample data point of data set. Compute distance of point to all existing nodes in graph (complexity linear in the number of nodes), or more ideally use a similarity search structure instead (complexity log or polylog in the number of nodes).
 
-# Select the 2 nodes that have the minimum distance to the sampled data point.
+# Select the 2 nodes that have the smallest distances to the sampled data point.
 
 # Consider the closest node the 1st BMU (the best matching unit) and the second closed the 2nd BMU.
 
 # If there is no edge between the 1st and 2nd BMU, create one; this entails creating an entry in both nodes since the edges are directed. Then set signal counter of the BMU toward the 2nd BMU to '1'; otherwise, increment signal counter of the BMU directed toward the 2nd BMU by '1'.
 
-# Identify the topological neighbors of the 1st BMU and the 2nd BMU. Find the intersection of the two sets. !!!Is not necessary a clique; must run algo to find subset of these vertices that define a clique!!! This defines a simplex containing the signal.
+# Identify the topological neighbors of the 1st BMU and the 2nd BMU. Find the intersection of these two neighborhood sets. !!!Is not necessary a clique; must run routine to find subset of these vertices that define a clique!!! This defines a simplex containing the signal.
 
 # Compute difference between the signal vector (sampled data point) and vertices of the simplex.
 
-# The difference between the BMU and the signal should be the smallest (by definition of the BMU). Use this distance to calculate the amount of "work" that would be required to move the BMU to the signal.
+# The difference between the 1st BMU and the signal should be the smallest (by definition of the BMU). Use this distance to calculate the amount of "work" that would be required to move the BMU to the signal.
 
-# For now, define 'k' as the sum of all the counters across all of the nodes edges over the value of the counter from the 1st BMU to 2nd BMU. That is, edge_counter(1stBMU_to_2ndBMU) /divide /sum_over_all_edges( edge_counters )
+# For now, define 'k' as the sum of all the counters across all of the node's edges divided by the value of the counter from the 1st BMU to 2nd BMU. That is, edge_counter(1stBMU_to_2ndBMU) /divide /sum_over_all_edges( edge_counters )
 
 # The "work" (error energy) done is k*(1/t)*(magnitude_of_difference)^2 where t = -D*log(1-SF)
 
 # The idea is to treat the "work" that would have been required to move the BMU to the signal as the current error of the model (in terms of the energy that would be required to remove the error completely by moving the node to the signal). We want to remove some of the error by computing changes to the reference vectors of nodes in the simplex containing the signal.
 
-# Changes to reference vectors of nodes in the simplex containing the signal labeled as shifts.
+# Changes to reference vectors of nodes in the simplex containing the signal designated 'shifts'.
 
 # Add shifts for each node to their respective "avg_err" props.
 
-# Magnitude of "destroyed" avg_err caused by previous step is added to node "acc_heat"
+# Magnitude of "destroyed" avg_err (caused by simple vector addition of a shift to the avg_err vector) caused by previous step is added to node "acc_heat"
 
-# If avg_err/sqrt(total_count) < \phi * sqrt(t), where 't' is scale parameter and \phi = t_exp/temp_avg and t_exp = temp * (.7)^2 and temp = acc_heat/(total_count-1) and temp_avg = sum(temp_n)/total_nodes
+# If avg_err/sqrt(total_count) < \phi * sqrt(t), where 't' is scale parameter and \phi = temp_exp/temp_avg and temp_exp = temp * (.7)^2 and temp = acc_heat/(total_count-1) and temp_avg = sum(temp_n)/total_nodes
 
 # Compute error energies w/ resp. to signal for all nodes in simplex. Difference between shift and error energy is residual error energy.
 
