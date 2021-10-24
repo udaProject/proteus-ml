@@ -1,4 +1,9 @@
 
+#############
+# This file is for brainstorming/scaffolding purposes only
+#############
+
+
 # Dependencies
 import math
 import numpy
@@ -13,9 +18,9 @@ import growing_neural_gas as grwgas
 # Import fuzzy logic handler
 import fuzzy_logic as fuzlog
 
-#######################
-# Build model
-#######################
+#########################
+###### Build model ######
+#########################
 
 
 # def manifold.grow(data_set):
@@ -34,10 +39,8 @@ import fuzzy_logic as fuzlog
         # counter on directed edge from 1st BMU to 2nd BMU.
 
         # Compute adaptation for all nodes that form vertices of containing
-        # simplicial cell; adaptation is some fraction of distance between node
-        # and data point. Adaptations in total should be normalized to fraction
-        # of distance between BMU and data point. Magnitude of adaptations are
-        # added to edge to BMU as utility.
+        # simplicial cell. Magnitude of adaptations are added to respective
+        # edge to BMU as utility.
 
         # The residual fraction of distance between BMU and data point is added
         # to BMU's accumulated error vector.
@@ -50,7 +53,7 @@ import fuzzy_logic as fuzlog
     # respectively.
 
     # Check if node appears very close to local uniform density. If passes test,
-    # set as cluster candidate. Greedily merge candidates when adjacent.
+    # set as cluster candidate. Greedily merge candidates when adjacent. Better way of seeding cluster candidates???
 
     # Treat cluster candidate as fixed region and assign other non-candidate
     # nodes to maximize objective function (maximize correlation/similarity of a
@@ -61,7 +64,7 @@ import fuzzy_logic as fuzlog
 
     # Iteratively estimate the change in support (volume) conditioned on
     # change in resolution factor (i.e. maximal Gaussian response in
-    # scale-space).
+    # scale-space)??? Better way to compute change in support conditional on scale factor???
 
     # If cluster candidate's change in support conditioned on change in
     # resolution factor indicates to within some confidence a negative 2nd
@@ -72,16 +75,16 @@ import fuzzy_logic as fuzlog
 
         # Initialize new chart in sub-space and stream feed all buffered data.
 
-    # Adjust resolution factor, if needed, for each cluster candidate.
+    # Adjust scale factor, if needed, for each cluster candidate.
 
     # Terminate when all clusters/nodes in a cluster have too few points for
     # statistically valid measurement and/or minimum distance between two points
     # in a cluster is larger than the scale variance sampling threshold.
 
 
-#######################
-# Utility
-#######################
+#####################
+###### Utility ######
+#####################
 
 
 # def manifold.stream_add(new_data_vector):
@@ -183,9 +186,9 @@ import fuzzy_logic as fuzlog
     # given chart.
 
 
-#######################
-# Analytic Operations
-#######################
+#################################
+###### Analytic Operations ######
+#################################
 
 
 # def manifold.prim_membership(some_vector_label):
@@ -226,7 +229,7 @@ import fuzzy_logic as fuzlog
     # interactive sequence by choosing a new binding (label) for the given set
     # based on their perception of the similarities of the set members.
     #
-    # NOTE: This can be used to teach the model arbitrary language, and is vital
+    # NOTE: This can be used to teach the model arbitrary "language", and is vital
     # for enabling interpretability of the model.
 
 # manifold.compset_idents[some_composite_set_label]
