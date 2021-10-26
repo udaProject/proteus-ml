@@ -7,7 +7,7 @@ import matplotlib.pyplot as plot
 import collections
 import numpy as np
 
-from custom_types import buffer, map, vector
+from .custom_types import buffer, map, vector
 
 # --- Definitions ---
 

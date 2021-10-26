@@ -1,0 +1,59 @@
+site_name: Proteus ML
+site_dir: docsite
+nav:
+  - Documentation:
+      - Intro: index.md
+      - Overview: overview.md
+      - Roadmap: roadmap.md
+      - Explanation of Procedures: procedures.md
+      - Schema References: schemas.md
+  - Coverage Report: coverage.md
+  - Papers: papers.md
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: black
+      accent: cyan
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+  # logo: img/logo.svg
+  # favicon: img/logo.svg
+  language: en
+markdown_extensions:
+  - def_list
+  - nl2br
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed
+  - pymdownx.tasklist
+  - pymdownx.superfences:
+      custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_div_format ''
+extra:
+  generator: false
+plugins:
+  - search:
+      lang: en
+      prebuild_index: true
+  - coverage:
+      page_name: coverage
+      html_report_dir: docs/htmlcov
+  - simple
+extra_css:
+- https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.43.0/swagger-ui.css
+extra_javascript:
+- https://unpkg.com/mermaid@8.4.6/dist/mermaid.min.js
