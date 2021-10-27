@@ -29,3 +29,5 @@ docsite/
 .coverage
 docs/htmlcov
 testing/dataset.json
+
+*.pdf
