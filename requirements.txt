@@ -4,7 +4,7 @@ numpy==1.18.5
 scikit-learn==0.23.1
 scipy==1.4.1
 mkdocs-material==7.2.1
-pymdown-extensions==8.2
+pymdown-extensions==10.0
 mkdocs-semiliterate==0.2.0
 pytest-cov==2.12.1
 mkdocs-coverage==0.2.4
